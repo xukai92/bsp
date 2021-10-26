@@ -1,5 +1,14 @@
 # A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics
 
+```
+@article{xu2021bsp,
+  title={{A {B}ayesian-Symbolic Approach to Reasoning and Learning for Intuitive Physics}},
+  author={\textbf{Kai Xu} and Srivastava, Akash and Gutfreund, Dan and Sosa, Felix and Ullman Tomer and Tenenbaumm, Joshua B. and Sutton, Charles},
+  journal={The 35th Conference on Neural Information Processing Systems (NeurIPS)},
+  year={2021},
+}
+```
+
 This repo (https://github.com/xukai92/bsp) contains the following folders and files.
 
 `/`
