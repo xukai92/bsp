@@ -1,0 +1,79 @@
+# Meta
+dt: 0.02
+nsteps: 50
+
+# Scenes
+## Scene 1
+### Entity 1
+Entity(
+    dynamic = true,
+    mass = 1.5787302117365625,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = Disc(radius=10.0)
+)
+### Entity 2
+Entity(
+    dynamic = true,
+    mass = 1.7517537004605233,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = Disc(radius=10.0)
+)
+### Entity 3
+Entity(
+    dynamic = true,
+    mass = 6.72249987903372,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = Disc(radius=10.0)
+)
+### Entity 4
+Entity(
+    dynamic = true,
+    mass = 5.259463420091017,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = Disc(radius=10.0)
+)
+### Entity 5
+Entity(
+    dynamic = false,
+    mass = 1000.0,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = RectWall(width=250, height=50)
+)
+### Entity 6
+Entity(
+    dynamic = false,
+    mass = 1000.0,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = RectWall(width=250, height=50)
+)
+### Entity 7
+Entity(
+    dynamic = false,
+    mass = 1000.0,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = RectWall(width=50, height=250)
+)
+### Entity 8
+Entity(
+    dynamic = false,
+    mass = 1000.0,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = RectWall(width=50, height=250)
+)
+

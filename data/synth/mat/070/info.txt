@@ -1,0 +1,25 @@
+# Meta
+dt: 0.02
+nsteps: 50
+
+# Scenes
+## Scene 1
+### Entity 1
+Entity(
+    dynamic = true,
+    mass = 4.512747376550747,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = Disc(radius=5.0)
+)
+### Entity 2
+Entity(
+    dynamic = false,
+    mass = 1.0,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 12.945674394719756,
+    shape = RectMat(width=42.9974631565513, height=38.819867288085675)
+)
+

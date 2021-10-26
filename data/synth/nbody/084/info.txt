@@ -1,0 +1,43 @@
+# Meta
+dt: 0.02
+nsteps: 50
+
+# Scenes
+## Scene 1
+### Entity 1
+Entity(
+    dynamic = true,
+    mass = 1000.0,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = Disc(radius=1.0)
+)
+### Entity 2
+Entity(
+    dynamic = true,
+    mass = 2.17723062532816,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = Disc(radius=1.0)
+)
+### Entity 3
+Entity(
+    dynamic = true,
+    mass = 0.7432407698679586,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = Disc(radius=1.0)
+)
+### Entity 4
+Entity(
+    dynamic = true,
+    mass = 3.893136324660419,
+    magnetism = 0.0,
+    charge = 0.0,
+    friction = 0.0,
+    shape = Disc(radius=1.0)
+)
+
