@@ -1,6 +1,6 @@
 # A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics
 
-This GitHub [repo](https://github.com/xukai92/bsp) contains source code for our paper *A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics
+This GitHub [repo](https://github.com/xukai92/bsp/) contains source code for our paper *A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics
 * at NeurIPS 2021.
 
 Please cite our paper using the following BibTeX entry if you use this source code in your research.
@@ -20,9 +20,6 @@ The repo contains the following folders and files.
     - `phys101`: selected scenes from Physics 101 (Wu et al., 2016); originally from http://phys101.csail.mit.edu/
     - `synth`: 3 types of synthetic scenes
     - `ullman`: visual stimulus used in Ullman et al. (2019); originally from https://github.com/tomeru/LPDS/
-- `suppl/`: supplementary materials
-    - `bounce_inspection`: visualisation for results discussed in appendix C.3.1
-    - `generalization`: visualisation for results discussed in appendix C.3.2
 - `notebooks/`: interactive notebooks to extract or analyse experimental results
     - `demo-world.ipynb`: example notebook to demonstrate how to run simulation with `BayesianSymbolic.jl`
     - `monly.ipynb`: notebook to extract results for M-step only results
@@ -69,6 +66,9 @@ The repo contains the following folders and files.
     - `neural.jl`: generic implementations of neural baselines
     - `sym_reg.jl`: functions for symbolic regression
     - `utility.jl` utility functions for simulation and loss computation
+- [`suppl/`](https://github.com/xukai92/bsp/tree/main/suppl/): supplementary materials
+    - `bounce_inspection`: visualisation for results discussed in appendix C.3.1
+    - `generalization`: visualisation for results discussed in appendix C.3.2
 - `Manifest.toml`: the exact package version of this environment
 - `master.jl`: master scripts to run a batch of experiments, calling scripts in `scripts/`
 - `Project.toml`: the dependency of this environment
