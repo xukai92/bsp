@@ -1,7 +1,6 @@
 # A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics
 
-This GitHub [repo](https://github.com/xukai92/bsp/) contains source code for our paper *A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics* at NeurIPS 2021.
-
+This GitHub [repository](https://github.com/xukai92/bsp/) contains code and data for our paper *A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics* at NeurIPS 2021.
 Please cite our paper using the following BibTeX entry if you use this source code in your research.
 ```
 @inproceedings{xu2021bsp,
@@ -11,8 +10,6 @@ Please cite our paper using the following BibTeX entry if you use this source co
   year={2021},
 }
 ```
-
-The repo contains the following folders and files, including both source code and extra visualisation mentioned in the appendix (in [`suppl/`](https://github.com/xukai92/bsp/tree/main/suppl/)).
 
 `/`
 - `data/`: generated data and processed data
