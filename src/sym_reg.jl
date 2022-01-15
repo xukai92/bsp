@@ -58,6 +58,21 @@ end
 
 # G_BSP_[dimensional_analysis][translation_invariants]
 
+G_BSP_00_old = @grammar begin
+    Const = c1 | c2 | c3
+    Scalar = ui | uj | bsub(ui, uj) | badd(ui, uj) | mi | mj | badd(mi, mj) | bsub(mi, mj) | bmul(mi, mj) | lj
+    Vec = pi | pj | c | vi | vj
+    Scalar = bnorm(Vec) | bproject(Vec, Vec)
+    Scalar = bpow2(Scalar)
+    Vec = bsub(Vec, Vec) | bnormalize(Vec) | bdiv(Vec, Scalar)
+    Scalar = badd(Scalar, Scalar) | bsub(Scalar, Scalar) | bmul(Scalar, Scalar) | bdiv(Scalar, Scalar)
+    # Force; defined as magnitude * [condition *] direction
+    Bool = does_collide(si, pi, sj, pj) | is_on(si, pi, sj, pj) # condition
+    BasicForce = Const * bmul(Scalar, Vec)              # uncondiitonal force
+    BasicForce = Const * bmul(bmul(Scalar, Vec), Bool)  #   conditional force
+    Force = BasicForce | badd(Force, BasicForce)
+end
+
 G_BSP_00 = @grammar begin
     Const = c1 | c2 | c3
     BasicScalar = ui | uj | mi | mj
@@ -71,6 +86,22 @@ G_BSP_00 = @grammar begin
     BasicForce = Const * bmul(Coeff, Direction)                 # uncondiitonal force
     BasicForce = Const * bmul(bmul(Coeff, Direction), Bool)     #   conditional force
     Force = BasicForce #| badd(Force, BasicForce)
+end
+
+G_BSP_01_old = @grammar begin
+    Const = c1 | c2 | c3
+    Scalar = ui | uj | bsub(ui, uj) | badd(ui, uj) | mi | mj | badd(mi, mj) | bsub(mi, mj) | bmul(mi, mj) | lj
+    Vec = bsub(pi, pj) | bsub(pi, c) | bsub(pj, c)
+    Vec = vi | vj | bsub(vi, vj)
+    Scalar = bnorm(Vec) | bproject(Vec, Vec)
+    Scalar = bpow2(Scalar)
+    Vec = bnormalize(Vec) | bdiv(Vec, Scalar)
+    Scalar = badd(Scalar, Scalar) | bsub(Scalar, Scalar) | bmul(Scalar, Scalar) | bdiv(Scalar, Scalar)
+    # Force; defined as magnitude * [condition *] direction
+    Bool = does_collide(si, pi, sj, pj) | is_on(si, pi, sj, pj) # condition
+    BasicForce = Const * bmul(Scalar, Vec)              # uncondiitonal force
+    BasicForce = Const * bmul(bmul(Scalar, Vec), Bool)  #   conditional force
+    Force = BasicForce | badd(Force, BasicForce)
 end
 
 G_BSP_01 = @grammar begin

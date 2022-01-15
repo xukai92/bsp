@@ -7,36 +7,19 @@ end
 versioninfo()
 @quickactivate
 
-using Plots, ProgressMeter, Logging, WeightsAndBiasLogger
+using Plots, ProgressMeter, WeightsAndBiasLogger
 theme(:bright; size=(300, 300))
 
-using Random, Turing, BayesianSymbolic
-using ExprOptimization.ExprRules
-
-includef(args...) = isdefined(Main, :Revise) ? includet(args...) : include(args...)
-includef(srcdir("utility.jl"))
-includef(srcdir("app_inf.jl"))
-includef(srcdir("sym_reg.jl"))
-includef(srcdir("network.jl"))
-includef(srcdir("exp_max.jl"))
-includef(srcdir("analyse.jl"))
-includef(srcdir("dataset.jl"))
-# Suppress warnings of using _varinfo
-with_logger(SimpleLogger(stderr, Logging.Error)) do
-    includef(srcdir("scenarios", "magnet.jl"))
-    includef(srcdir("scenarios", "nbody.jl"))
-    includef(srcdir("scenarios", "bounce.jl"))
-    includef(srcdir("scenarios", "mat.jl"))
-    includef(srcdir("scenarios", "spring.jl"))
-    includef(srcdir("scenarios", "fall.jl"))
-end
+include(scriptsdir("bsp.jl"))
+@includeall
 
 isdebugbsp() = "JULIA_DEBUG" in keys(ENV) && ENV["JULIA_DEBUG"] == "bsp"
 
-const CE_PRESET = CrossEntropy(800, 2, 10, 600, 200.0)
-const CE_DEBUG  = CrossEntropy( 20, 2, 10,  15,   5.0)
+const CE_PRESET      = CrossEntropy(1000, 4, 10, 800, 200.0)
+const CE_PRESET_WEAK = CrossEntropy( 800, 3, 10, 600, 200.0)
+const CE_DEBUG       = CrossEntropy(  20, 2, 10,  15,   5.0)
 
-function loadpreset(dataset; priordim::Bool=true, priortrans::Bool=true)
+function loadpreset(dataset; weak::Bool=false, priordim::Bool=true, priortrans::Bool=true, monly::Bool=false)
     local grammar
     if priordim == true
         if priortrans == true
@@ -51,7 +34,9 @@ function loadpreset(dataset; priordim::Bool=true, priortrans::Bool=true)
             grammar = G_BSP_00
         end
     end
-    ce = isdebugbsp() ? CE_DEBUG : CE_PRESET
+    ce = isdebugbsp() ? CE_DEBUG : 
+                 dataset == "synth/mat" || weak ? CE_PRESET_WEAK : 
+                 CE_PRESET
     preset = Dict(
         "synth/magnet" => (
             ScenarioModel=MagnetScenario, 
@@ -61,7 +46,7 @@ function loadpreset(dataset; priordim::Bool=true, priortrans::Bool=true)
             ScenarioModel=NBodyScenario, 
             latentname=["mass1", "mass2", "mass3"],
             ealg = ImportanceSampling(nsamples=200, rsamples=3),
-            malg = BSPForce(grammar=grammar, opt=ce, beta=1e-3),
+            malg = BSPForce(grammar=grammar, opt=ce, beta=1e-3, ntrials=(monly ? 2 : 1)),
             elike = Likelihood(nahead=5, nlevel=0.01),
             mlike = Likelihood(nahead=1, nlevel=0.01),
         ),
@@ -69,7 +54,7 @@ function loadpreset(dataset; priordim::Bool=true, priortrans::Bool=true)
             ScenarioModel=BounceScenario,
             latentname=["mass1", "mass2", "mass3", "mass4"],
             ealg = ImportanceSampling(nsamples=200, rsamples=3),
-            malg = BSPForce(grammar=grammar, opt=ce, beta=1e-3),
+            malg = BSPForce(grammar=grammar, opt=ce, beta=1e-6, ntrials=(monly ? 4 : 1)),
             elike = Likelihood(nahead=5, nlevel=0.01),
             mlike = Likelihood(nahead=1, nlevel=0.01),
         ),
@@ -78,7 +63,7 @@ function loadpreset(dataset; priordim::Bool=true, priortrans::Bool=true)
             ScenarioModel=MatScenario, 
             latentname=["fric2", "magn3"],
             ealg = ImportanceSampling(nsamples=200, rsamples=3),
-            malg = BSPForce(grammar=grammar, opt=ce, beta=1e-3),
+            malg = BSPForce(grammar=grammar, opt=ce, beta=1e-3, ntrials=1),
             elike = Likelihood(nahead=5, nlevel=0.001),
             mlike = Likelihood(nahead=1, nlevel=0.001),
         ),
@@ -112,17 +97,19 @@ end
 
 @cast function monly(
     dataset::String, ntrains::Int;
-    seed::Int=0, shuffleseed::Int=-1, priordim::Bool=true, priortrans::Bool=true,
-    slient::Bool=false, nosave::Bool=false, depthcount::Int=6,
+    seed::Int=0, shuffleseed::Int=-1, nopriordim::Bool=false, nopriortrans::Bool=false,
+    slient::Bool=false, nosave::Bool=false, depthcount::Int=5,
 )
-    hps = @ntuple(ntrains, seed, shuffleseed, priordim, priortrans)
+    hps = @ntuple(ntrains, seed, shuffleseed, nopriordim, nopriortrans)
 
     scenarios, attributes = loaddata(datadir(dataset), ntrains; shuffleseed=shuffleseed, verbose=!slient)
     @unpack ScenarioModel, latentname, ealg, malg, elike, mlike =
-        loadpreset(dataset; priordim=priordim, priortrans=priortrans)
+        loadpreset(dataset; priordim=~nopriordim, priortrans=~nopriortrans, monly=true)
     
-    nexprs = count_expressions(malg.grammar, depthcount, :Force)
-    !slient && @info "Num of expressions upto depth $depthcount" nexprs
+    if !slient
+        nexprs = count_expressions(malg.grammar, depthcount, :Force)
+        @info "Num of expressions upto depth $depthcount" nexprs
+    end
     
     # M-step with oracle latent
     Random.seed!(seed)
@@ -149,7 +136,7 @@ function init_ogn(n_inp_units=12, n_emb_units=50, n_hid_units=100, n_out_units=2
             Dense(1 * n_hid_units, n_hid_units, actf),
             Dense(1 * n_hid_units, n_out_units)
         ),
-    ), lr = 2f-3, n_passes_per = 1_000)
+    ), lr = 2f-3, n_passes_per = 2_000)
 end
 
 function init_in(N, n_inp_units=13, n_emb_units=50, n_hid_units=100, n_out_units=2, actf=relu)
@@ -170,7 +157,7 @@ function init_in(N, n_inp_units=13, n_emb_units=50, n_hid_units=100, n_out_units
             Dense(1 * n_hid_units, n_hid_units, actf),
             Dense(1 * n_hid_units, 2 * N * n_out_units)
         ),
-    ), lr = 1f-3, n_passes_per = 200)
+    ), lr = 1f-3, n_passes_per = 400)
 end
 
 
@@ -182,7 +169,7 @@ function init_mlpforce(n_inp_units=12, n_hid_units=100, n_out_units=2, actf=relu
             Dense(1 * n_hid_units, n_hid_units, actf),
             Dense(1 * n_hid_units, n_out_units)
         ),
-    ), lr = 1f-3, n_passes_per = 1_000)
+    ), lr = 1f-3, n_passes_per = 2_000)
 end
 
 function init_mlpdynamics(N, n_inp_units=11, n_hid_units=100, n_out_units=2, actf=relu)
@@ -193,7 +180,7 @@ function init_mlpdynamics(N, n_inp_units=11, n_hid_units=100, n_out_units=2, act
             Dense(1 * n_hid_units, n_hid_units, actf),
             Dense(1 * n_hid_units, 2 * N * n_out_units)
         ),
-    ), lr = 1f-3, n_passes_per = 200)
+    ), lr = 1f-3, n_passes_per = 400)
 end
 
 function loadpreset_neural(dataset, model)
@@ -258,15 +245,12 @@ end
 @cast function em(
     dataset::String, ntrains::Int, niters::Int; 
     seed::Int=0, shuffleseed::Int=-1,
-    slient::Bool=false, logging::Bool=false, nosave::Bool=false, depthcount::Int=6,
+    slient::Bool=false, logging::Bool=false, nosave::Bool=false,
 )
     hps = @ntuple(ntrains, seed, shuffleseed)
 
     scenarios, attributes = loaddata(datadir(dataset), ntrains; shuffleseed=shuffleseed, verbose=!slient)
-    @unpack ScenarioModel, latentname, ealg, malg, elike, mlike = loadpreset(dataset)
-    
-    nexprs = count_expressions(malg.grammar, depthcount, :Force)
-    !slient && @info "Num of expressions upto depth $depthcount" nexprs
+    @unpack ScenarioModel, latentname, ealg, malg, elike, mlike = loadpreset(dataset; weak=true)
     
     logging && (logger = WBLogger(project="BSP"))
     logging && config!(logger, hps)

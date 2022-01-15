@@ -1,1 +1,4 @@
+results
+paper/raw/*.csv
+paper/figs/*
 .ipynb_checkpoints

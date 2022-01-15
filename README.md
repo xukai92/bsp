@@ -1,5 +1,9 @@
 # A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics
 
+This GitHub [repo](https://github.com/xukai92/bsp) contains source code for our paper *A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics
+* at NeurIPS 2021.
+
+Please cite our paper using the following BibTeX entry if you use this source code in your research.
 ```
 @article{xu2021bsp,
   title={{A {B}ayesian-Symbolic Approach to Reasoning and Learning for Intuitive Physics}},
@@ -9,19 +13,26 @@
 }
 ```
 
-This repo (https://github.com/xukai92/bsp) contains the following folders and files.
+The repo contains the following folders and files.
 
 `/`
 - `data/`: generated data and processed data
-    - `phys101`: selected scenes from Physics 101 (Wu et al., 2016); obtained from http://phys101.csail.mit.edu/
+    - `phys101`: selected scenes from Physics 101 (Wu et al., 2016); originally from http://phys101.csail.mit.edu/
     - `synth`: 3 types of synthetic scenes
-    - `ullman`: visual stimulus used in Ullman et al. (2019); obtained from https://github.com/tomeru/LPDS
+    - `ullman`: visual stimulus used in Ullman et al. (2019); originally from https://github.com/tomeru/LPDS/
+- `suppl/`: supplementary materials
+    - `bounce_inspection`: visualisation for results discussed in appendix C.3.1
+    - `generalization`: visualisation for results discussed in appendix C.3.2
 - `notebooks/`: interactive notebooks to extract or analyse experimental results
     - `demo-world.ipynb`: example notebook to demonstrate how to run simulation with `BayesianSymbolic.jl`
     - `monly.ipynb`: notebook to extract results for M-step only results
     - `em.ipynb`: notebook to extract results for complete EM results
     - `phys101.ipynb`: notebook to extract results for PHYS101 results
     - `ullman.ipynb`: notebook to extract results for ULLMAN results
+- `paper/`: interactive notebooks to produce artifects for the paper
+    - `raw/`: extracted results
+    - `figures.ipynb`: notebook to make figures
+    - `tables.ipynb`: notebook to make tables
 - `scripts/`: executable scripts to generate or pre-process data or to run experiments
     - `evalexpr_efficiency.jl`: script to compare different implementations for expression evaluations
         - This does not affect the results but only performance.
@@ -98,7 +109,7 @@ Run the following experiments
 - `julia master.jl efficiency synth/bounce`
 - `julia master.jl efficiency synth/mat`
 
-Collect the results using `notebooks/monly.ipynb` and make the figure using `notebooks/paper/figures.ipynb`
+Collect the results using `notebooks/monly.ipynb` and make the figure using `paper/figures.ipynb`
 
 ### Figure 5
 
@@ -107,14 +118,14 @@ Run the following experiments
 - `julia master.jl ablation synth/bounce`
 - `julia master.jl ablation synth/mat`
 
-Collect the results using `notebooks/monly.ipynb` and make the figure using `notebooks/paper/figures.ipynb`
+Collect the results using `notebooks/monly.ipynb` and make the figure using `paper/figures.ipynb`
 
 ### Table 1
 
 Run the following experiments
 - `julia master.jl em synth/nbody`
 
-Collect the results using `notebooks/em.ipynb` and make the figure using `notebooks/paper/tables.ipynb`
+Collect the results using `notebooks/em.ipynb` and make the figure using `paper/tables.ipynb`
 
 ### Table 2
 
@@ -122,16 +133,16 @@ Run the following experiments
 - `julia master.jl phys101 fall`
 - `julia master.jl phys101 spring`
 
-Collect the results using `notebooks/phys101.ipynb` and make the figure using `notebooks/paper/tables.ipynb`
+Collect the results using `notebooks/phys101.ipynb` and make the figure using `paper/tables.ipynb`
 
 ### Table 3 & Figure 10
 
 Run the following experiments
 - `julia master.jl ullman`
 
-Collect the results using `notebooks/ullman.ipynb` and make the table using `notebooks/paper/tables.ipynb` & figure using `notebooks/paper/figures.ipynb`
+Collect the results using `notebooks/ullman.ipynb` and make the table using `paper/tables.ipynb` & figure using `paper/figures.ipynb`
 
 ## Misc
 
 Set the environment variable `JULIA_NUM_THREADS=10` before running any scripts will enable multiple-threading (e.g. 10 threads in this example) whenever it's programmed to do so.
-- For example, `master.jl` executes a batch of experiments and it is programmed to run them in a multi-threading manner.
+For example, `master.jl` executes a batch of experiments and it is programmed to run them in a multi-threading manner which can benefit from setting this environment variable.

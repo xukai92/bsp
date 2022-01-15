@@ -81,6 +81,7 @@ Base.@kwdef struct BSPForce{C, T, G, O, L, E, B} <: AbstractForceModel
     loweropt::L = (constant=zeros(3), opt=LBFGS(), niterations=3)
     external::E = nothing
     beta::B = 0
+    ntrials::Int = 3
 end
 
 const EXTERNAL_GRAVITY = (e, s) -> [0, -9.8] .* e.mass'
@@ -127,7 +128,18 @@ end
 
 function mstep(alg::BSPForce, ScenarioModel, scenarios, latents, like; verbose=false)
     lossfunc = gen_lossfunc(alg.loweropt, alg.external, alg.beta, ScenarioModel, scenarios, latents, like)
-    retval = ExprOptimization.optimize(alg.opt, alg.grammar, :Force, lossfunc; verbose=verbose)
+    
+    retvals = Vector{Any}(undef, alg.ntrials)
+    for i in 1:alg.ntrials
+        retvals[i] = ExprOptimization.optimize(alg.opt, alg.grammar, :Force, lossfunc; verbose=verbose)
+    end
+    ibest = first(sortperm(map(retval -> retval.loss, retvals)))
+    retval = retvals[ibest]
+    
+    if verbose
+        best_loss_ntrials = retval.loss
+        @info "best_loss_ntrials=$best_loss_ntrials"
+    end
 
     constant = lossfunc(retval.tree, alg.grammar; return_constant=true)
     verbose && @info "BSP force constants" constant

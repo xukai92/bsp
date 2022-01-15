@@ -7,26 +7,11 @@ end
 versioninfo()
 @quickactivate
 
-using Plots, ProgressMeter, Logging, WeightsAndBiasLogger
+using Plots, ProgressMeter, WeightsAndBiasLogger
 theme(:bright; size=(300, 300))
 
-using Random, Turing, BayesianSymbolic
-using ExprOptimization.ExprRules
-
-includef(args...) = isdefined(Main, :Revise) ? includet(args...) : include(args...)
-includef(srcdir("utility.jl"))
-includef(srcdir("app_inf.jl"))
-includef(srcdir("sym_reg.jl"))
-includef(srcdir("network.jl"))
-includef(srcdir("exp_max.jl"))
-includef(srcdir("analyse.jl"))
-includef(srcdir("dataset.jl"))
-# Suppress warnings of using _varinfo
-with_logger(SimpleLogger(stderr, Logging.Error)) do
-    includef(srcdir("scenarios", "ullman.jl"))
-end
-
-includef(scriptsdir("ullman_hacks.jl"))
+include(scriptsdir("bsp.jl"))
+@includeall true
 
 @main function main(
     wid::Int, sid::Int, niters::Int;
