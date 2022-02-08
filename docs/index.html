@@ -4,10 +4,10 @@
 <!-- 08 Feb 2022 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>&lrm;</title>
+<title>A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics</title>
 <meta name="author" content="Kai Xu" />
 <meta name="generator" content="Org Mode" />
-<link rel='stylesheet' type='text/css' href='style.css'/>
+<link rel='stylesheet' type='text/css' href='style.css'/> <style>.side-navbar { display: none; }</style>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -16,14 +16,21 @@
     <path d='M1920 250H0V0s126.707 78.536 349.975 80.05c177.852 1.203 262.805-63.874 553.803-63.874 290.517 0 383.458 57.712 603.992 61.408 220.527 3.696 278.059-61.408 412.23-17.239' class='WaveFooter___StyledPath3'></path>
   </svg>
 </div>
+<header>
+  <nav class='side-navbar'>
+    <ul>
+      <a href='/'><li>Home</li></a>
+      <a href='/blog'><li>Blog</li></a>
+    </ul>
+  </nav>
+</header>
 </div>
 <div id="content" class="content">
-<div id="outline-container-org03b3a4f" class="outline-2">
-<h1 id="org03b3a4f">A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics</h1>
-<div class="outline-text-2" id="text-org03b3a4f">
-<p>
+<header>
+<h1 class="title">A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics</h1>
+</header><p>
 This <a href="https://github.com/xukai92/bsp/">GitHub repository</a> contains code and data for our paper <i>A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics</i> at NeurIPS 2021.
-Please cite our paper using the following BibTeX entry if you use this source code in your research.
+If you use the code in your research, please cite us using the following BibTeX entry:
 </p>
 <div class="org-src-container">
 <pre class="src src-bibtex"><span style="color: #88C0D0;">@inproceedings</span>{<span style="color: #81A1C1;">xu2021bsp</span>,
@@ -35,6 +42,9 @@ Please cite our paper using the following BibTeX entry if you use this source co
 </pre>
 </div>
 
+<div id="outline-container-org3581d08" class="outline-2">
+<h2 id="org3581d08">Repo structure</h2>
+<div class="outline-text-2" id="text-org3581d08">
 <p>
 <code>/</code>
 </p>
@@ -122,18 +132,19 @@ Please cite our paper using the following BibTeX entry if you use this source co
 <li><code>README.md</code>: this file you are reading</li>
 </ul>
 </div>
+</div>
 
-<div id="outline-container-org67c9bda" class="outline-3">
-<h3 id="org67c9bda">Setups</h3>
-<div class="outline-text-3" id="text-org67c9bda">
+<div id="outline-container-orgab12638" class="outline-2">
+<h2 id="orgab12638">Setups</h2>
+<div class="outline-text-2" id="text-orgab12638">
 <p>
 BSP is implemented with Julia and some of the dependencies or scripts also rely on Python.
 </p>
 </div>
 
-<div id="outline-container-orgdb5e78b" class="outline-4">
-<h4 id="orgdb5e78b">Julia</h4>
-<div class="outline-text-4" id="text-orgdb5e78b">
+<div id="outline-container-org9778f84" class="outline-3">
+<h3 id="org9778f84">Julia</h3>
+<div class="outline-text-3" id="text-org9778f84">
 <p>
 Please follow <a href="https://julialang.org/downloads/">https://julialang.org/downloads/</a> to download and install Julia.
 Make sure <code>julia</code> is available in your executable path.
@@ -146,9 +157,9 @@ There are a few more steps to have Julia properly linked with Python, which is e
 </div>
 </div>
 
-<div id="outline-container-org1fdd5ab" class="outline-4">
-<h4 id="org1fdd5ab">Python</h4>
-<div class="outline-text-4" id="text-org1fdd5ab">
+<div id="outline-container-org60781e9" class="outline-3">
+<h3 id="org60781e9">Python</h3>
+<div class="outline-text-3" id="text-org60781e9">
 <p>
 You will need to have Python installed and a virtual environment set up.
 The virtual environment should have the following packages
@@ -174,13 +185,13 @@ Once these steps are done, you are ready to run the scripts.
 </div>
 </div>
 
-<div id="outline-container-org6e723bc" class="outline-3">
-<h3 id="org6e723bc">Reproducing results</h3>
-<div class="outline-text-3" id="text-org6e723bc">
+<div id="outline-container-org1b9ba3d" class="outline-2">
+<h2 id="org1b9ba3d">Reproducing results</h2>
+<div class="outline-text-2" id="text-org1b9ba3d">
 </div>
-<div id="outline-container-orgcf27867" class="outline-4">
-<h4 id="orgcf27867">Figure 4</h4>
-<div class="outline-text-4" id="text-orgcf27867">
+<div id="outline-container-org672c82e" class="outline-3">
+<h3 id="org672c82e">Figure 4</h3>
+<div class="outline-text-3" id="text-org672c82e">
 <p>
 Run the following experiments
 </p>
@@ -196,9 +207,9 @@ Collect the results using <code>notebooks/monly.ipynb</code> and make the figure
 </div>
 </div>
 
-<div id="outline-container-orga137689" class="outline-4">
-<h4 id="orga137689">Figure 5</h4>
-<div class="outline-text-4" id="text-orga137689">
+<div id="outline-container-orgce57a1e" class="outline-3">
+<h3 id="orgce57a1e">Figure 5</h3>
+<div class="outline-text-3" id="text-orgce57a1e">
 <p>
 Run the following experiments
 </p>
@@ -214,9 +225,9 @@ Collect the results using <code>notebooks/monly.ipynb</code> and make the figure
 </div>
 </div>
 
-<div id="outline-container-org780ba78" class="outline-4">
-<h4 id="org780ba78">Table 1</h4>
-<div class="outline-text-4" id="text-org780ba78">
+<div id="outline-container-orgcd789ef" class="outline-3">
+<h3 id="orgcd789ef">Table 1</h3>
+<div class="outline-text-3" id="text-orgcd789ef">
 <p>
 Run the following experiments
 </p>
@@ -230,9 +241,9 @@ Collect the results using <code>notebooks/em.ipynb</code> and make the figure us
 </div>
 </div>
 
-<div id="outline-container-orgf0ff26c" class="outline-4">
-<h4 id="orgf0ff26c">Table 2</h4>
-<div class="outline-text-4" id="text-orgf0ff26c">
+<div id="outline-container-org220d05b" class="outline-3">
+<h3 id="org220d05b">Table 2</h3>
+<div class="outline-text-3" id="text-org220d05b">
 <p>
 Run the following experiments
 </p>
@@ -247,9 +258,9 @@ Collect the results using <code>notebooks/phys101.ipynb</code> and make the figu
 </div>
 </div>
 
-<div id="outline-container-org6f490e9" class="outline-4">
-<h4 id="org6f490e9">Table 3 &amp; Figure 10</h4>
-<div class="outline-text-4" id="text-org6f490e9">
+<div id="outline-container-org93a22e3" class="outline-3">
+<h3 id="org93a22e3">Table 3 &amp; Figure 10</h3>
+<div class="outline-text-3" id="text-org93a22e3">
 <p>
 Run the following experiments
 </p>
@@ -264,14 +275,13 @@ Collect the results using <code>notebooks/ullman.ipynb</code> and make the table
 </div>
 </div>
 
-<div id="outline-container-orgc987ffb" class="outline-3">
-<h3 id="orgc987ffb">Misc</h3>
-<div class="outline-text-3" id="text-orgc987ffb">
+<div id="outline-container-org94fc94f" class="outline-2">
+<h2 id="org94fc94f">Misc</h2>
+<div class="outline-text-2" id="text-org94fc94f">
 <p>
 Set the environment variable <code>JULIA_NUM_THREADS=10</code> before running any scripts will enable multiple-threading (e.g. 10 threads in this example) whenever it&rsquo;s programmed to do so.
 For example, <code>master.jl</code> executes a batch of experiments and it is programmed to run them in a multi-threading manner which can benefit from setting this environment variable.
 </p>
-</div>
 </div>
 </div>
 </div>

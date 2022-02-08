@@ -1,7 +1,10 @@
-* A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics
+#+TITLE: A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics
+#+OPTIONS: toc:nil ^:{}
+#+EXPORT_FILE_NAME: docs/index
+#+HTML_HEAD: <link rel='stylesheet' type='text/css' href='style.css'/> <style>.side-navbar { display: none; }</style>
 
 This [[https://github.com/xukai92/bsp/][GitHub repository]] contains code and data for our paper /A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics/ at NeurIPS 2021.
-Please cite our paper using the following BibTeX entry if you use this source code in your research.
+If you use the code in your research, please cite us using the following BibTeX entry:
 #+begin_src bibtex
 @inproceedings{xu2021bsp,
   title={A {B}ayesian-Symbolic Approach to Reasoning and Learning for Intuitive Physics},
@@ -10,6 +13,8 @@ Please cite our paper using the following BibTeX entry if you use this source co
   year={2021},
 }
 #+end_src
+
+* Repo structure
 
 =/=
 - =data/=: generated data and processed data
@@ -70,11 +75,11 @@ Please cite our paper using the following BibTeX entry if you use this source co
 - =Project.toml=: the dependency of this environment
 - =README.md=: this file you are reading
 
-** Setups
+* Setups
 
 BSP is implemented with Julia and some of the dependencies or scripts also rely on Python.
 
-*** Julia
+** Julia
 
 Please follow https://julialang.org/downloads/ to download and install Julia.
 Make sure =julia= is available in your executable path.
@@ -82,7 +87,7 @@ Then from /the root of this repo/, you can do =julia -e "import Pkg; Pkg.instant
 
 There are a few more steps to have Julia properly linked with Python, which is explained next.
 
-*** Python
+** Python
 
 You will need to have Python installed and a virtual environment set up.
 The virtual environment should have the following packages
@@ -96,9 +101,9 @@ Please see the libraries imported in the script.
 
 Once these steps are done, you are ready to run the scripts.
 
-** Reproducing results
+* Reproducing results
 
-*** Figure 4
+** Figure 4
 
 Run the following experiments
 - =julia master.jl efficiency synth/nbody=
@@ -107,7 +112,7 @@ Run the following experiments
 
 Collect the results using =notebooks/monly.ipynb= and make the figure using =paper/figures.ipynb=
 
-*** Figure 5
+** Figure 5
 
 Run the following experiments
 - =julia master.jl ablation synth/nbody=
@@ -116,14 +121,14 @@ Run the following experiments
 
 Collect the results using =notebooks/monly.ipynb= and make the figure using =paper/figures.ipynb=
 
-*** Table 1
+** Table 1
 
 Run the following experiments
 - =julia master.jl em synth/nbody=
 
 Collect the results using =notebooks/em.ipynb= and make the figure using =paper/tables.ipynb=
 
-*** Table 2
+** Table 2
 
 Run the following experiments
 - =julia master.jl phys101 fall=
@@ -131,14 +136,14 @@ Run the following experiments
 
 Collect the results using =notebooks/phys101.ipynb= and make the figure using =paper/tables.ipynb=
 
-*** Table 3 & Figure 10
+** Table 3 & Figure 10
 
 Run the following experiments
 - =julia master.jl ullman=
 
 Collect the results using =notebooks/ullman.ipynb= and make the table using =paper/tables.ipynb= & figure using =paper/figures.ipynb=
 
-** Misc
+* Misc
 
 Set the environment variable =JULIA_NUM_THREADS=10= before running any scripts will enable multiple-threading (e.g. 10 threads in this example) whenever it's programmed to do so.
 For example, =master.jl= executes a batch of experiments and it is programmed to run them in a multi-threading manner which can benefit from setting this environment variable.
