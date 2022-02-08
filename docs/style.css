@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700&family=Source+Code+Pro:wght@300;400;500;700&family=Source+Sans+Pro:wght@300;400;700&display=swap');
+@import url("normalize.css");
+@import url("boilerplate.css");
+@import url("nord.css");
+@import url("org-default.css");
+@import url("org-taopeng.css");
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+/* ===== Overloading default */
+
+/* Code block */
+.org-src-container { color: var(--nord4); }
+pre { 
+  background-color: var(--nord1);
+  overflow: auto;
+  white-space: pre;
+  border-radius: 8px;
+  transition: background-color 400ms ease-in-out 0s;
+}
+pre.src:before {
+  color: var(--nord6);
+  background-color: var(--nord3);
+  border: none;
+  border-radius: 4px;
+  top: 0;
+}
+
+/* More languages */
+pre.src-typescript:before { content: 'Typescript'; }
+pre.src-bibtex:before { content: 'BibTeX'; }
+pre.src-jupyter-python:before { content: 'Python'; }
+pre.src-julia:before { content: 'Julia'; }
+pre.src-jupyter-julia:before { content: 'Julia'; }
+
+.org-svg { 
+  width: auto;
+  vertical-align: middle; 
+}
+
+.todo { color: var(--nord11); }
+.done { color: var(--nord14); }
+.priority { color: var(--nord13); }
+
+#postamble { 
+  margin-bottom: 0em; 
+  text-align: center;
+}
+#postamble .author,
+#postamble .date,
+#postamble .creator,
+#postamble .theme,
+#postamble .validation
+{ 
+  display: inline;
+}
+
+/* Overloading default ===== */
+
+/* ===== Overloading taopeng */
+
+td, th { border: 0; }
+
+#footnotes {
+  border-top: 3px solid var(--nord10);
+  margin-bottom: 0;
+}
+
+p.verse,
+blockquote {
+  border-left: 3px solid var(--nord10);
+}
+
+body {
+  font-family: Inter;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  width: 100%;
+  max-width: none;
+  color: rgb(76, 86, 106);
+  background-color: rgb(242, 244, 248);
+  transition: background-color 400ms ease-in-out 0s;
+}
+
+.title {
+  margin: 0 0 0.5em 0;
+  border-bottom: 3px solid var(--nord10);
+}
+
+.outline-2 { margin-bottom: 0; }
+
+#table-of-contents { background-color: var(--nord5); }
+#text-table-of-contents li { list-style-type: none; }
+#table-of-contents h2 { margin: 0; }
+
+figure { text-align: center; }
+
+/* Overloading taopeng ===== */
+
+/* ===== Mimicing nord.com */
+
+/* Floating body canvas */
+#content { 
+  background-color: rgb(255, 255, 255);
+  width: 42%;
+  margin: 2em auto 1em auto;
+  padding: 3% 10% 3% 10%;
+  border-radius: 8px;
+  box-shadow: rgb(184 194 215 / 25%) 0px 4px 6px, rgb(184 194 215 / 10%) 0px 5px 7px;
+  transition: box-shadow 400ms ease-in-out 0s, background-color 400ms ease-in-out 0s;
+}
+
+/* Link and hovering link */
+a {
+  color: var(--nord10);
+  text-decoration: none;
+  transition: color 200ms ease-in-out 0s, background-color 200ms ease-in-out 0s;
+}
+a:hover {
+  border-radius: 0.25em;
+  background-color: rgba(236, 239, 244, 0.45);
+}
+
+/* Code shade */
+code {
+  font-family: "Source Code Pro";
+  font-weight: 500;
+  font-size: 0.85em;
+  padding: 0.2em 0.4em;
+  background-color: rgb(236, 239, 244);
+  border-radius: 4px;
+  transition: background-color 400ms ease-in-out 0s;
+}
+
+/* Nice header and footer waves */
+.header-wave {}
+.footer-wave {}
+.DividerSvgTop { transform: scaleY(-1); }
+.DividerSvg {}
+.WaveFooter___StyledPath1 {
+  fill: #81A1C1;
+  opacity: 20%;
+}
+.WaveFooter___StyledPath2 { fill: #ECEFF4; }
+.WaveFooter___StyledPath3 { fill: #fbfbfc; }
+
+/* Bullet color */
+ul {
+  list-style: none;
+}
+ul li::before {
+  content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: var(--nord5); /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+/* Mimicing nord.com ===== */
+
+h1, h2, h3, h4, h5, h6 { color: var(--nord1); }
+h4, h5, h6 { font-weight: normal; }
+
+ul { padding-inline-start: 20px; }
+
+/* Hide icons for small screens */
+@media screen and (max-width: 40rem) {
+  .side-navbar { display: none}
+  .homepage-links i { display: none; }
+}
+
+/* Side navbar*/
+.side-navbar {
+  position: fixed;
+  left: 16.5%;
+}
+.side-navbar ul { padding-inline-start: 0; }
+.side-navbar ul li {
+  margin: 1em 0;
+  border-top: 2px dashed var(--nord4);
+  border-bottom: 2px dashed var(--nord4);
+  border-right: 2px dashed var(--nord4);
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background-color: rgb(242, 244, 248);
+  padding: 0 1em;
+  transform: rotate(-7deg);
+}
+.side-navbar ul li::before { content: none; }
+
+/* Back-to-top button in the bottom */
+#back-top-div {
+  text-align: right;
+  margin-top: -3em;
+}
+#back-top {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  right: 21%;
+  width: 2em;
+  padding: 1em 0;
+  border-top: 2px dashed var(--nord4);
+  border-right: 2px dashed var(--nord4);
+  border-left: 2px dashed var(--nord4);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: rgb(242, 244, 248);
+}
+
+/* Adapative content, side navbar and back-to-top button */
+@media screen and (max-width: 80em) {
+  #content { width: 72%; }
+  .side-navbar { left: 1%; }
+  #back-top { right: 6%; }
+}
+
+/* org-ref */
+a.org-ref-reference {
+  vertical-align: super;
+  font-size: 0.5em;
+}
+ul.org-ref-bib {}
+
+/* ox-bibtex */
+td.bibtexnumber {
+  text-align: left;
+  min-width: 12em;
+}
+td.bibtexitem {}
+.shadow {
+  box-shadow: rgb(184 194 215 / 25%) 0px 4px 6px, rgb(184 194 215 / 10%) 0px 5px 7px;
+}
+
+/* Side-by-side */
+.sbs-row { display: flex; }
+.sbs-col { flex: 50%; }
+
+/* Side note */
+/*
+.sidenote {
+  display: block;
+  position: relative;
+  float: right;
+  right: -54.5%;
+  min-width: 18em;
+  width: 47.5%;
+}
+.sidenote-label {
+  color: var(--nord10);
+}
+*/
+
+
+
+/* ========================================================================== */
+
+@import url("boilerplate-helper.css");
+@import url("boilerplate-responsive.css");
+@import url("boilerplate-print.css");

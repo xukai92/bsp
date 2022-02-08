@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 08 Feb 2022 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="author" content="Kai Xu" />
+<meta name="generator" content="Org Mode" />
+<link rel='stylesheet' type='text/css' href='style.css'/>
+</head>
+<body>
+<div id="preamble" class="status">
+<div class='header-wave'>
+  <svg viewBox='0 0 1920 100' xmlns='http://www.w3.org/2000/svg' class='DividerSvgTop'>
+    <path d='M1920 250H0V0s126.707 78.536 349.975 80.05c177.852 1.203 262.805-63.874 553.803-63.874 290.517 0 383.458 57.712 603.992 61.408 220.527 3.696 278.059-61.408 412.23-17.239' class='WaveFooter___StyledPath3'></path>
+  </svg>
+</div>
+</div>
+<div id="content" class="content">
+<div id="outline-container-org03b3a4f" class="outline-2">
+<h1 id="org03b3a4f">A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics</h1>
+<div class="outline-text-2" id="text-org03b3a4f">
+<p>
+This <a href="https://github.com/xukai92/bsp/">GitHub repository</a> contains code and data for our paper <i>A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics</i> at NeurIPS 2021.
+Please cite our paper using the following BibTeX entry if you use this source code in your research.
+</p>
+<div class="org-src-container">
+<pre class="src src-bibtex"><span style="color: #88C0D0;">@inproceedings</span>{<span style="color: #81A1C1;">xu2021bsp</span>,
+  <span style="color: #D8DEE9;">title</span>={A {B}ayesian-Symbolic Approach to Reasoning and Learning for Intuitive Physics},
+  <span style="color: #D8DEE9;">author</span>={Kai Xu and Srivastava, Akash and Gutfreund, Dan and Sosa, Felix and Ullman Tomer and Tenenbaumm, Joshua B. and Sutton, Charles},
+  <span style="color: #D8DEE9;">booktitle</span>={The 35th Conference on Neural Information Processing Systems (NeurIPS)},
+  <span style="color: #D8DEE9;">year</span>={2021},
+}
+</pre>
+</div>
+
+<p>
+<code>/</code>
+</p>
+<ul class="org-ul">
+<li><code>data/</code>: generated data and processed data
+<ul class="org-ul">
+<li><code>phys101</code>: selected scenes from Physics 101 (Wu et al., 2016); originally from <a href="http://phys101.csail.mit.edu/">http://phys101.csail.mit.edu/</a></li>
+<li><code>synth</code>: 3 types of synthetic scenes</li>
+<li><code>ullman</code>: visual stimulus used in Ullman et al. (2019); originally from <a href="https://github.com/tomeru/LPDS/">https://github.com/tomeru/LPDS/</a></li>
+</ul></li>
+<li><code>notebooks/</code>: interactive notebooks to extract or analyse experimental results
+<ul class="org-ul">
+<li><code>demo-world.ipynb</code>: example notebook to demonstrate how to run simulation with <code>BayesianSymbolic.jl</code></li>
+<li><code>monly.ipynb</code>: notebook to extract results for M-step only results</li>
+<li><code>em.ipynb</code>: notebook to extract results for complete EM results</li>
+<li><code>phys101.ipynb</code>: notebook to extract results for PHYS101 results</li>
+<li><code>ullman.ipynb</code>: notebook to extract results for ULLMAN results</li>
+</ul></li>
+<li><code>paper/</code>: interactive notebooks to produce artifects for the paper
+<ul class="org-ul">
+<li><code>raw/</code>: extracted results</li>
+<li><code>figures.ipynb</code>: notebook to make figures</li>
+<li><code>tables.ipynb</code>: notebook to make tables</li>
+</ul></li>
+<li><code>scripts/</code>: executable scripts to generate or pre-process data or to run experiments
+<ul class="org-ul">
+<li><code>evalexpr_efficiency.jl</code>: script to compare different implementations for expression evaluations
+<ul class="org-ul">
+<li>This does not affect the results but only performance.</li>
+</ul></li>
+<li><code>generate-synth.jl</code>: script to generate SYNTH</li>
+<li><code>helper.jl</code>: common helper functions used by scripts</li>
+<li><code>neural.jl</code>: concrete architecture and hyper-parameters for neural baselines</li>
+<li><code>preprocess-ullman-master.jl</code>: master script to process a scene from ULLMAN, calling <code>scripts/preprocess-ullman.py</code></li>
+<li><code>preprocess-ullman.py</code>: script to process scenes from ULLMAN</li>
+<li><code>runexp-ullman.jl</code>: script to run an experiment on ULLMAN; for other datasets, use <code>runexp.jl</code></li>
+<li><code>runexp.jl</code>: script to run an experiment on a given dataset and specific hyper-parameters
+<ul class="org-ul">
+<li>All datasets but ULLMAN are supported; for ULLMAN, use <code>runexp-ullman.jl</code></li>
+</ul></li>
+<li><code>ullman_hacks.jl</code>: ULLMAN specific grammar
+<ul class="org-ul">
+<li>See the comments on hacks in the beginning of the file</li>
+</ul></li>
+</ul></li>
+<li><code>src/</code>: source codes for simulation and the BSP algorithm
+<ul class="org-ul">
+<li><code>BayesianSymbolic.jl/</code>: world construction and simulations</li>
+<li><code>data/</code>: data processing functions
+<ul class="org-ul">
+<li><code>phys101.jl</code>: PHYS101 specific functions</li>
+<li><code>preprocessing.jl</code>: generic data preparation functions</li>
+<li><code>ullman.jl</code>: ULLMAN specific functions</li>
+<li><code>ullman.txt</code>: ground truth information for ULLMAN</li>
+</ul></li>
+<li><code>scenarios/</code>: scenarios implemented in Turing.jl
+<ul class="org-ul">
+<li><code>bounce.jl</code>: the BOUNCE scenario from SYNTH</li>
+<li><code>fall.jl</code>: the FALL scenario from PHYS101</li>
+<li><code>magnet.jl</code>: the MAGNET scenario
+<ul class="org-ul">
+<li>This is not used in the paper</li>
+</ul></li>
+<li><code>mat.jl</code>: the MAT scenario from SYNTH</li>
+<li><code>nbody.jl</code>: the NBDOY scenario from SYNTH</li>
+<li><code>spring.jl</code> the SPRING scenario from PHYS101</li>
+<li><code>ullman.jl</code>: the scenario from ULLMAN</li>
+</ul></li>
+<li><code>analyse.jl</code>: quantitative and visual analysis</li>
+<li><code>app_inf.jl</code>: functions for approximate inference</li>
+<li><code>dataset.jl</code>: functions for loading datasets (SYNTH, PHYS101 and ULLMAN)</li>
+<li><code>exp_max.jl</code>: types and interfaces for the EM algorithm</li>
+<li><code>neural.jl</code>: generic implementations of neural baselines</li>
+<li><code>sym_reg.jl</code>: functions for symbolic regression</li>
+<li><code>utility.jl</code> utility functions for simulation and loss computation</li>
+</ul></li>
+<li><a href="https://github.com/xukai92/bsp/tree/main/suppl/"><code>suupl/</code></a>: supplementary materials
+<ul class="org-ul">
+<li><code>bounce_inspection</code>: visualisation for results discussed in appendix C.3.1</li>
+<li><code>generalization</code>: visualisation for results discussed in appendix C.3.2</li>
+</ul></li>
+<li><code>Manifest.toml</code>: the exact package version of this environment</li>
+<li><code>master.jl</code>: master scripts to run a batch of experiments, calling scripts in <code>scripts/</code></li>
+<li><code>Project.toml</code>: the dependency of this environment</li>
+<li><code>README.md</code>: this file you are reading</li>
+</ul>
+</div>
+
+<div id="outline-container-org67c9bda" class="outline-3">
+<h3 id="org67c9bda">Setups</h3>
+<div class="outline-text-3" id="text-org67c9bda">
+<p>
+BSP is implemented with Julia and some of the dependencies or scripts also rely on Python.
+</p>
+</div>
+
+<div id="outline-container-orgdb5e78b" class="outline-4">
+<h4 id="orgdb5e78b">Julia</h4>
+<div class="outline-text-4" id="text-orgdb5e78b">
+<p>
+Please follow <a href="https://julialang.org/downloads/">https://julialang.org/downloads/</a> to download and install Julia.
+Make sure <code>julia</code> is available in your executable path.
+Then from <i>the root of this repo</i>, you can do <code>julia -e "import Pkg; Pkg.instantiate()"</code> to instantiate the environment.
+</p>
+
+<p>
+There are a few more steps to have Julia properly linked with Python, which is explained next.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1fdd5ab" class="outline-4">
+<h4 id="org1fdd5ab">Python</h4>
+<div class="outline-text-4" id="text-org1fdd5ab">
+<p>
+You will need to have Python installed and a virtual environment set up.
+The virtual environment should have the following packages
+</p>
+<ul class="org-ul">
+<li><code>matplotlib</code></li>
+<li><code>pandas</code></li>
+<li><code>wandb</code></li>
+</ul>
+<p>
+To properly link this virtual environment with Julia, please follow <a href="https://github.com/JuliaPy/PyCall.jl">https://github.com/JuliaPy/PyCall.jl</a>.
+</p>
+
+<p>
+You will also have all necessary Python dependencies to run <code>scripts/preprocess-ullman.py</code>.
+Please see the libraries imported in the script.
+</p>
+
+<p>
+Once these steps are done, you are ready to run the scripts.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6e723bc" class="outline-3">
+<h3 id="org6e723bc">Reproducing results</h3>
+<div class="outline-text-3" id="text-org6e723bc">
+</div>
+<div id="outline-container-orgcf27867" class="outline-4">
+<h4 id="orgcf27867">Figure 4</h4>
+<div class="outline-text-4" id="text-orgcf27867">
+<p>
+Run the following experiments
+</p>
+<ul class="org-ul">
+<li><code>julia master.jl efficiency synth/nbody</code></li>
+<li><code>julia master.jl efficiency synth/bounce</code></li>
+<li><code>julia master.jl efficiency synth/mat</code></li>
+</ul>
+
+<p>
+Collect the results using <code>notebooks/monly.ipynb</code> and make the figure using <code>paper/figures.ipynb</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga137689" class="outline-4">
+<h4 id="orga137689">Figure 5</h4>
+<div class="outline-text-4" id="text-orga137689">
+<p>
+Run the following experiments
+</p>
+<ul class="org-ul">
+<li><code>julia master.jl ablation synth/nbody</code></li>
+<li><code>julia master.jl ablation synth/bounce</code></li>
+<li><code>julia master.jl ablation synth/mat</code></li>
+</ul>
+
+<p>
+Collect the results using <code>notebooks/monly.ipynb</code> and make the figure using <code>paper/figures.ipynb</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org780ba78" class="outline-4">
+<h4 id="org780ba78">Table 1</h4>
+<div class="outline-text-4" id="text-org780ba78">
+<p>
+Run the following experiments
+</p>
+<ul class="org-ul">
+<li><code>julia master.jl em synth/nbody</code></li>
+</ul>
+
+<p>
+Collect the results using <code>notebooks/em.ipynb</code> and make the figure using <code>paper/tables.ipynb</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf0ff26c" class="outline-4">
+<h4 id="orgf0ff26c">Table 2</h4>
+<div class="outline-text-4" id="text-orgf0ff26c">
+<p>
+Run the following experiments
+</p>
+<ul class="org-ul">
+<li><code>julia master.jl phys101 fall</code></li>
+<li><code>julia master.jl phys101 spring</code></li>
+</ul>
+
+<p>
+Collect the results using <code>notebooks/phys101.ipynb</code> and make the figure using <code>paper/tables.ipynb</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6f490e9" class="outline-4">
+<h4 id="org6f490e9">Table 3 &amp; Figure 10</h4>
+<div class="outline-text-4" id="text-org6f490e9">
+<p>
+Run the following experiments
+</p>
+<ul class="org-ul">
+<li><code>julia master.jl ullman</code></li>
+</ul>
+
+<p>
+Collect the results using <code>notebooks/ullman.ipynb</code> and make the table using <code>paper/tables.ipynb</code> &amp; figure using <code>paper/figures.ipynb</code>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc987ffb" class="outline-3">
+<h3 id="orgc987ffb">Misc</h3>
+<div class="outline-text-3" id="text-orgc987ffb">
+<p>
+Set the environment variable <code>JULIA_NUM_THREADS=10</code> before running any scripts will enable multiple-threading (e.g. 10 threads in this example) whenever it&rsquo;s programmed to do so.
+For example, <code>master.jl</code> executes a batch of experiments and it is programmed to run them in a multi-threading manner which can benefit from setting this environment variable.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<div id='back-top-div'>
+  <a href='#content'><div id='back-top'>&uarr;</div></a>
+</div>
+<div class='postamble-line-1'><p>Created via <a href="https://www.gnu.org/software/emacs/">Emacs</a> with <a href="https://orgmode.org">Org</a> mode | Styled by <a href='https://www.nordtheme.com/'>Nord</a> | Updated on 08 Feb 2022</p></div>
+<div class='postamble-line-2'><p class='copyright'>Copyright &copy; 2022, Kai Xu </p><p class='validation'></p></div><div class='footer-wave'>
+  <svg viewBox='0 0 1920 250' xmlns='http://www.w3.org/2000/svg' class='DividerSvg'>
+    <path d='M1920 250H0V0s126.707 78.536 349.975 80.05c177.852 1.203 362.805-63.874 553.803-63.874 290.517 0 383.458 57.712 603.992 61.408 220.527 3.696 278.059-61.408 412.23-17.239' class='WaveFooter___StyledPath1'></path>
+    <path d='M1920 144s-467.917 116.857-1027.243-17.294C369.986 1.322 0 45.578 0 45.578V250h1920V144z' class='WaveFooter___StyledPath2'></path>
+    <path d='M0 195.553s208.547-75.581 701.325-20.768c376.707 41.908 520.834-67.962 722.545-67.962 222.926 0 311.553 83.523 496.129 86.394V250H0v-54.447z' class='WaveFooter___StyledPath3'></path>
+  </svg>
+</div>
+</div>
+</body>
+</html>
