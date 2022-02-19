@@ -196,12 +196,14 @@ dt {
   display: block;
 }
 
+/*
 .footdef sup:before {
   content: "[";
 }
 .footdef sup:after {
   content: "]";
 }
+*/
 .footdef p {
   display: inline;
 }

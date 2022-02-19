@@ -1,0 +1,35 @@
+#content {
+    margin-left: 10%;
+    margin-right: 28%;
+}
+
+.side-navbar {
+  left: calc(10% - 2em);
+}
+
+#back-top {
+    right: 30%;
+}
+
+#postamble .postamble-line-1, #postamble .postamble-line-2 {
+  margin: 0 28% 0 10%;
+}
+
+/* Comment */
+.utterances {
+  margin-left: auto;
+  margin-right: 28%;
+}
+
+@media screen and (max-width: 80em) {
+  #content {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .side-navbar { left: calc(4% - 2em); }
+  #back-top { right: calc(4% + 2em); }
+  #postamble .postamble-line-1, #postamble .postamble-line-2 {
+    margin: 0 34% 0 4%;
+  }
+  .utterances { margin-right: 4%; }
+}
