@@ -3,7 +3,8 @@
 #+EXPORT_FILE_NAME: docs/index
 #+HTML_HEAD: <link rel='stylesheet' type='text/css' href='style.css'/> <style>.side-navbar { display: none; }</style>
 
-This [[https://github.com/xukai92/bsp/][GitHub repository]] contains code and data for our paper /A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics/ at NeurIPS 2021.
+This [[https://github.com/xukai92/bsp/][GitHub repository]] contains code and data for our paper /[[https://openreview.net/forum?id=WN8ChCARq2][A Bayesian-Symbolic Approach to Reasoning and Learning in Intuitive Physics]]/ at NeurIPS 2021.
+
 If you use the code in your research, please cite us using the following BibTeX entry:
 #+begin_src bibtex
 @inproceedings{xu2021bsp,
