@@ -95,34 +95,34 @@ end
     return (zero=mse_zero, oracle=mse_oracle)
 end
 
-@cast function monly(
-    dataset::String, ntrains::Int;
-    seed::Int=0, shuffleseed::Int=-1, nopriordim::Bool=false, nopriortrans::Bool=false,
-    slient::Bool=false, nosave::Bool=false, depthcount::Int=5,
-)
-    hps = @ntuple(ntrains, seed, shuffleseed, nopriordim, nopriortrans)
+#@cast function monly(
+#    dataset::String, ntrains::Int;
+#    seed::Int=0, shuffleseed::Int=-1, nopriordim::Bool=false, nopriortrans::Bool=false,
+#    slient::Bool=false, nosave::Bool=false, depthcount::Int=5,
+#)
+#    hps = @ntuple(ntrains, seed, shuffleseed, nopriordim, nopriortrans)
 
-    scenarios, attributes = loaddata(datadir(dataset), ntrains; shuffleseed=shuffleseed, verbose=!slient)
-    @unpack ScenarioModel, latentname, ealg, malg, elike, mlike =
-        loadpreset(dataset; priordim=~nopriordim, priortrans=~nopriortrans, monly=true)
-    
-    if !slient
-        nexprs = count_expressions(malg.grammar, depthcount, :Force)
-        @info "Num of expressions upto depth $depthcount" nexprs
-    end
-    
-    # M-step with oracle latent
-    Random.seed!(seed)
-    latents = make_latents(attributes) # orcale latents
-    tused = @elapsed force = mstep(malg, ScenarioModel, scenarios, latents, mlike; verbose=true)
-    
-    expr = BayesianSymbolic.get_executable(force.tree, force.grammar)
-    !slient && @info "M-step only" expr tused
-    !nosave && wsave(
-        resultsdir(dataset, savename(hps; connector="-"), "monly.jld2"), 
-        @strdict(ScenarioModel, latentname, ealg, malg, elike, mlike, force),
-    )
-end
+#    scenarios, attributes = loaddata(datadir(dataset), ntrains; shuffleseed=shuffleseed, verbose=!slient)
+#    @unpack ScenarioModel, latentname, ealg, malg, elike, mlike =
+#        loadpreset(dataset; priordim=~nopriordim, priortrans=~nopriortrans, monly=true)
+
+#    if !slient
+#        nexprs = count_expressions(malg.grammar, depthcount, :Force)
+#        @info "Num of expressions upto depth $depthcount" nexprs
+#    end
+
+#    # M-step with oracle latent
+#    Random.seed!(seed)
+#    latents = make_latents(attributes) # orcale latents
+#    tused = @elapsed force = mstep(malg, ScenarioModel, scenarios, latents, mlike; verbose=true)
+
+#    expr = BayesianSymbolic.get_executable(force.tree, force.grammar)
+#    !slient && @info "M-step only" expr tused
+#    !nosave && wsave(
+#        resultsdir(dataset, savename(hps; connector="-"), "monly.jld2"),
+#        @strdict(ScenarioModel, latentname, ealg, malg, elike, mlike, force),
+#    )
+#end
 
 function init_ogn(n_inp_units=12, n_emb_units=50, n_hid_units=100, n_out_units=2, actf=relu)
     return (nm = OGNForceModel(
@@ -244,12 +244,13 @@ end
 
 @cast function em(
     dataset::String, ntrains::Int, niters::Int; 
-    seed::Int=0, shuffleseed::Int=-1,
+    seed::Int=0, shuffleseed::Int=-1, idx::Int=0,
     slient::Bool=false, logging::Bool=false, nosave::Bool=false,
 )
     hps = @ntuple(ntrains, seed, shuffleseed)
 
-    scenarios, attributes = loaddata(datadir(dataset), ntrains; shuffleseed=shuffleseed, verbose=!slient)
+    idcs = idx == 0 ? nothing : [idx]
+    scenarios, attributes = loaddata(datadir(dataset), ntrains; idcs=idcs, shuffleseed=shuffleseed, verbose=!slient)
     @unpack ScenarioModel, latentname, ealg, malg, elike, mlike = loadpreset(dataset; weak=true)
     
     logging && (logger = WBLogger(project="BSP"))

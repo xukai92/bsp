@@ -46,11 +46,17 @@ function loadfall(dir, idcs; verbose=false, kwargs...)
 end
 
 # Spring
+#const PHYS101_SPRING_CONFIGS = [
+#    ("w_block_05-tight-01-Kinect_RGB_1", 25, 70, 110.3),
+#    ("w_block_05-tight-04-Kinect_RGB_1", 25, 70, 110.3),
+#    ("w_block_10-tight-01-Kinect_RGB_1", 35, 80, 230.8),
+#    ("w_block_10-tight-02-Kinect_RGB_1", 35, 80, 230.8),
+#]
 const PHYS101_SPRING_CONFIGS = [
-    ("w_block_05-tight-01-Kinect_RGB_1", 25, 70, 110.3),
-    ("w_block_05-tight-04-Kinect_RGB_1", 25, 70, 110.3),
-    ("w_block_10-tight-01-Kinect_RGB_1", 35, 80, 230.8),
-    ("w_block_10-tight-02-Kinect_RGB_1", 35, 80, 230.8),
+    # filename, start_frame, end_frame, disc_mass
+    ("v1", 20, 180, 110.3),
+    ("v2", 10, 100, 110.3),
+    ("v3", 10, 100, 230.8),
 ]
 
 function process_spring(data, fstart, fend, mass; verbose=false)
